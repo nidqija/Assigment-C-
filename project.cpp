@@ -11,41 +11,50 @@ using namespace std;
 
 int main(){
 
- char InputCommands[200];
+ string InputCommands;
  fstream file;
+ string fileName;
  bool isTrue = true;
 
-while (isTrue){
+while (isTrue) {
+
 
 //variable to take different types of input
-cin.getline(InputCommands , 200);
+cin >> InputCommands;
 
 //create a textfile
- if (InputCommands == "CREATE" || "Create" || "create")
+ if (InputCommands == "CREATE")
  {
 
-    string fileName;
     cout << "Enter filename";
     cin >> fileName;
-  	file.open(fileName , ios::out | ios::app);
-  	file.close();
+  	 file.open(fileName , ios::out | ios::app);
+ 	 file.close();
+    cout << "File successfully created!";
 
- } 
-
-//Open a textfile based on user input
+ }
 
 
- 
-} 
- 
-   
+else if (InputCommands == "DATABASES")
+{
 	
+   ifstream f(fileName);
+   string s;
+   while (getline(f,s))
+   cout << s << endl;
+   f.close();
 
+}
+else if (InputCommands == "CREATE DATABASE")
+{
 
+}
+  }
 
-	
 
 	
 
 	return 0;
+
+
 }
