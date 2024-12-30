@@ -1,0 +1,2 @@
+Table name: customer
+ hello i am raziq 

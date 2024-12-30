@@ -1,60 +1,146 @@
-#include <iostream>
-#include <iomanip>
-#include <fstream>
-#include <stdlib.h>
-#include  <bits/stdc++.h>
-#include <string>
+//Program : project.cpp
+//Course : CCP6114 Programming Fundamentals
+//Lecture Class : TC3L
+//Tutorial Class : TT5L
+//Trimester :2430
+//Member_1: 242UC244Q7 | RAZIQ DIN BIN MOHD TASRIRI | RAZIQ.DIN.MOHD@STUDENT.MMU.EDU.MY | 019321459
+//Member_2: ID | NAME | EMAIL | PHONENUMBER
+//Member_3: ID | NAME | EMAIL | PHONENUMBER
 
+//TASK DISTRIBUTION
+//MEMBER_1:
+//MEMBER_2:
+//MEMBER_3:
+
+
+
+
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include<string>
 
 using namespace std;
 
 
+void DisplayMessage();
+void Create(string fileName);
+void CreateTable ( string fileName , string tableName , string tableData);
+void viewDatabase();
+
 int main(){
-
- string InputCommands;
- fstream file;
- string fileName;
- bool isTrue = true;
-
-while (isTrue) {
+   string fileName;
+   string commands;
+   DisplayMessage();
+   cout << "Enter your commands" << endl;
 
 
-//variable to take different types of input
-cin >> InputCommands;
+while (true){
 
-//create a textfile
- if (InputCommands == "CREATE")
+ getline(cin , commands);
+
+ 
+ if (commands == "CREATE")
  {
+   	cin >> fileName;
+   	Create(fileName);
+ } 
 
-    cout << "Enter filename";
-    cin >> fileName;
-  	 file.open(fileName , ios::out | ios::app);
- 	 file.close();
-    cout << "File successfully created!";
+ else if (commands == "CREATE TABLE")
+ {
+   string tableName;
+   string tableData;
+   cout << "Enter file name: ";
+   cin >> fileName;
+   cin >> tableName;
+   while (true){
+    string line;
+    getline(cin , line);
 
+    if (line == ";"){
+      cout << "Thank you!" << endl;
+      break;
+    }
+    tableData += line + " " ;
+   }
+    CreateTable(fileName , tableName , tableData);
+    cout << "Table created successfully!" << endl;
+ }
+
+ else if (commands == "DATABASES"){
+    viewDatabase();
  }
 
 
-else if (InputCommands == "DATABASES")
-{
-	
-   ifstream f(fileName);
-   string s;
-   while (getline(f,s))
-   cout << s << endl;
-   f.close();
+}
+  
+
+
+ 
+
+
+return 0;
 
 }
-else if (InputCommands == "CREATE DATABASE")
-{
+
+
+// Create a new textfile 
+
+void Create(string fileName){
+   fstream file;
+   fstream fileDatabase;
+   fileDatabase.open("databases.txt" , ios :: out | ios :: app);
+   fileDatabase << fileName << endl;
+   fileDatabase.close();
+   file.open(fileName , ios::out | ios::app);
+   file.close();
+   cout << "file created successfully" << endl;
+   
 
 }
-  }
 
 
-	
+// Create a new table
 
-	return 0;
-
-
+void CreateTable(string fileName, string tableName, string tableData) {
+    ofstream file;
+    file.open(fileName, ios::out | ios::app);
+    if (file.is_open()) {
+        file << "Table name: " << tableName << endl;
+        file << tableData << endl;
+        file.close();
+    } else {
+        cout << "Error opening file" << endl;
+    }
 }
+
+
+// View Databases
+
+void viewDatabase(){
+  ifstream f("databases.txt");
+  string s;
+  while (getline(f,s))
+    cout << s << endl;
+    f.close();
+}
+
+
+
+
+
+void DisplayMessage(){
+  cout << "Welcome to Light Mariadb Interpreter"<< endl;
+  cout << "Input your commands" << endl;
+  cout << "1.CREATE" << endl;
+  cout << "2.CREATE TABLE" << endl;
+  cout << "3.TABLES" << endl;
+  cout << "4.INSERT INTO" << endl;
+  cout << "5.SELECT" << endl;
+  cout << "6.UPDATE" << endl;
+  cout << "7.DELETE" << endl;
+  cout << "8.DATABASES" << endl;
+  
+}
+
+
