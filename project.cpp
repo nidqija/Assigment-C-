@@ -3,9 +3,7 @@
 //Lecture Class : TC3L
 //Tutorial Class : TT5L
 //Trimester :2430
-//Member_1: 242UC244Q7 | RAZIQ DIN BIN MOHD TASRIRI | RAZIQ.DIN.MOHD@STUDENT.MMU.EDU.MY | 019321459
-//Member_2: ID | NAME | EMAIL | PHONENUMBER
-//Member_3: ID | NAME | EMAIL | PHONENUMBER
+//Member_1: 242UC244Q7 | RAZIQ DIN BIN MOHD TASRIRI | RAZIQ.DIN.MOHD@STUDENT.MMU.EDU.MY | 0193214659
 
 //TASK DISTRIBUTION
 //MEMBER_1:
@@ -27,10 +25,13 @@ void DisplayMessage();
 void Create(string fileName);
 void CreateTable ( string fileName , string tableName , string tableData);
 void viewDatabase();
+void InsertInto(string fileName);
+
 
 int main(){
    string fileName;
    string commands;
+   const int size=10;
    DisplayMessage();
    cout << "Enter your commands" << endl;
 
@@ -42,8 +43,8 @@ while (true){
  
  if (commands == "CREATE")
  {
-   	cin >> fileName;
-   	Create(fileName);
+    cin >> fileName;
+    Create(fileName);
  } 
 
  else if (commands == "CREATE TABLE")
@@ -61,7 +62,7 @@ while (true){
       cout << "Thank you!" << endl;
       break;
     }
-    tableData += line + " " ;
+    tableData += line + "," ;
    }
     CreateTable(fileName , tableName , tableData);
     cout << "Table created successfully!" << endl;
@@ -69,6 +70,12 @@ while (true){
 
  else if (commands == "DATABASES"){
     viewDatabase();
+ }
+
+ else if (commands == "INSERT INTO"){
+    cout << "Enter file name:" << endl;
+    cin >> fileName;
+    InsertInto(fileName);
  }
 
 
@@ -126,8 +133,50 @@ void viewDatabase(){
 }
 
 
+//Insert Key Values in table
+
+void InsertInto( string fileName )
+
+{
+  const int size = 10;
+
+  string Data[size];
+  string tableKeyValues;
+  string s;
+  ofstream file;
+  ifstream f(fileName);
+
+  while(getline(f,s))
+    cout << s << endl;
+    f.close();
+
+  cout << "Enter your key values" << endl;
+  file.open(fileName, ios::out | ios::app);  
+  if (file.is_open()){
+    for (int i = 0 ; i <= size ; i++){
+        getline(cin,Data[i]) ;
+        tableKeyValues += Data[i] + "," ;
+        file << tableKeyValues<< endl;
+       }
 
 
+  } else{
+    cout << "Error opening file" << endl;
+  }
+    
+
+    file << tableKeyValues<< endl;
+    file.close();
+    cout << "Thank you for the key values!" << endl;
+ 
+}
+
+
+
+
+
+
+//Display Messages and Instructions
 
 void DisplayMessage(){
   cout << "Welcome to Light Mariadb Interpreter"<< endl;
@@ -142,5 +191,3 @@ void DisplayMessage(){
   cout << "8.DATABASES" << endl;
   
 }
-
-
