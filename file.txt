@@ -1,0 +1,5 @@
+Table name: customer
+,customer_id,customer_name,customer_surname,
+
+
+
